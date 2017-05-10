@@ -18,34 +18,54 @@ from requests.exceptions import SSLError
 from . import __version__
 
 FILE_DOWNLOAD_URL = 'https://raw.githubusercontent.com/github/gitignore/master/{0}.gitignore'
+IDE_OS_FILE_DOWNLOAD_URL = 'https://raw.githubusercontent.com/github/gitignore/master/Global/{0}.gitignore'
 SUPPORT_TYPE = ('Java','Python','Objective-C', 'Swift', 'Go')
+SUPPORT_IDE = ('JetBrains', 'Xcode', 'Vim', 'Emacs', 'Eclipse')
+SUPPORT_OS = ('macOS', 'Windows', 'Linux')
 
 
-def get_file_url(param):
-    if param not in SUPPORT_TYPE:
-        return None
-    return FILE_DOWNLOAD_URL.format(param)
+def get_github_file_urls(params):
+    if params is None: return None
+    urls = []
+    for os_item in params['os']:
+        if os_item in SUPPORT_OS:
+            urls.append(IDE_OS_FILE_DOWNLOAD_URL.format(os_item))
+    for query_item in params['query']:
+        if query_item in SUPPORT_TYPE:
+            urls.append(FILE_DOWNLOAD_URL.format(query_item))
+    for ide_item in params['ide']:
+        if ide_item in SUPPORT_IDE:
+            urls.append(IDE_OS_FILE_DOWNLOAD_URL.format(ide_item))
+
+    return urls
 
 
-def download_file(file_url):
-    response = requests.get(file_url, stream=True)
-    if response.status_code == 200:
-        with open(os.path.join(os.getcwd(), '.gitignore'), 'wb') as f:
-            f.write(response.content)
-    return response
+def download_file(file_urls):
+    content_list = []
+    for file_url in file_urls:
+        response = requests.get(file_url, stream=True)
+        if response.status_code == 200:
+            content_list.append(response.content)
+
+    if len(content_list) == 0: return False
+
+    content = '\n'.join(content_list)
+    with open(os.path.join(os.getcwd(), '.gitignore'), 'wb') as f:
+        f.write(content)
+    return True
 
 
 def _get_instructions(args):
-    file_url = get_file_url(args['query'][0])
-    if not file_url:
+    file_urls = get_github_file_urls(args)
+    if not file_urls or len(file_urls) == 0:
         return False
-    response = download_file(file_url)
-    return "Add .gitignore file success." if response.status_code == 200 else "download file fail"
+    response = download_file(file_urls)
+    return "Add .gitignore file success." if response else "download file fail"
 
 
 def addit(args):
     try:
-        return _get_instructions(args) or 'Sorry, couldn\'t find any help with that topic\n'
+        return _get_instructions(args) or 'Sorry, couldn\'t find any content for these language, IDE, OS \n'
     except (ConnectionError, SSLError):
         return 'Failed to establish network connection\n'
 
@@ -54,6 +74,10 @@ def get_parser():
     parser = argparse.ArgumentParser(description='instant .gitignore file add helper via the command line')
     parser.add_argument('query', metavar='LANGUAGE', type=str, nargs='*',
                         help='the language of supported in : '+'\t ,'.join(SUPPORT_TYPE))
+    parser.add_argument('-i', '--ide', type=str, nargs='*',
+                        help='the supported IDE in : ' + '\t ,'.join(SUPPORT_IDE), default='')
+    parser.add_argument('-o', '--os', type=str, nargs='*',
+                        help='the supported OS in : ' + '\t ,'.join(SUPPORT_IDE), default='')
 
     parser.add_argument('-v', '--version', help='display current version of addit', action='store_true')
     return parser

@@ -24,15 +24,30 @@ optional arguments:
 A common usage is:  
 ```Bash
 cd your_project_path
-addit Java
+addit Objective-C Xcode macOS
 ```
 
-currently only support
+currently only support  
+
+following language
 * Java
 * Python
 * Objective-C
 * Swift
 * Go
+
+following IDE
+* JetBrains
+* Xcode
+* Vim
+* Emacs
+* Eclipse
+
+following OS  
+* macOS
+* Windows
+* Linux
+
 
 *Be ware of the Capitalization and word case*  
 
