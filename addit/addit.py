@@ -15,7 +15,7 @@ import os
 from requests import ConnectionError
 from requests.exceptions import SSLError
 
-__version__ = '1.0.0'
+from . import __version__
 
 FILE_DOWNLOAD_URL = 'https://raw.githubusercontent.com/github/gitignore/master/{0}.gitignore'
 SUPPORT_TYPE = ('Java','Python','Objective-C', 'Swift', 'Go')
