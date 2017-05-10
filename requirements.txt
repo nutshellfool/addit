@@ -1,0 +1,2 @@
+requests==2.14.1
+argparse==1.4.0
