@@ -1,6 +1,5 @@
 language: python
 python:
-- '2.6'
 - '2.7'
 - '3.3'
 - '3.4'
@@ -11,3 +10,5 @@ notifications:
   slack:
     rooms:
       - secure: eSEgSyauTnmzYy4KHS7ZX+CsxP0ts9UKez2BtL1qntVibH9nTGcGIgt+llw5O99q7+UspUWl2SpyuEpgkpgcJ0Hbuu+vAIQXXLj2hCQGQi17wcjJWXci4z7azxYtS+wqeFUQJ8gS7GEzwFWGiHXvhdeAbddlPAOAXwEF/6IrFQBIx8CGqmVjFb11GRJZAGhaCoYAJjwvPGNIAQWHyH4E2E4cJTbbcc3A0bneMy7jPVOH9L6quTPh8KMn5S0jtoRgU/o22huqx1GQevZCTjUn8p0/khpzIbxLKU9ltnTCOG5L3FSYKdaR7JYNzDrCsz4Bwd0vRCTGj7fhhYWPqs10DFbD+J26BRhymd6742Ah3ex6kqQj+lesaKfOZ9L4opxQfYl69BaQdko+x+LtOJJ7oDAwscKkxvhJ6kExTLwFyo2w0ikV1vDxOoXgiBlZLzIOnwOxIjIotOgnzxBu4KJV+PCs24cJStVJNC+h3MaSgC2JEtE/WRrlZ4sh6/GBf9jrMKgC9ydVfz+eTqlu/USI2kzC4hZIQuM+65OETR/6Ef/T8BJlCsiv5FSDxtkeyGA315ZFrr2lcXi9WaoE8XJ8SGuz4xbCmEkzbNz6YSbHtvKhwMTf0bLh398oppIY3KNltNEoI0ujcZfrbmhWIGk0AaS07UQ4lB4PLjuhWCQKdDc=
+    on_success: never
+    on_failure: always
