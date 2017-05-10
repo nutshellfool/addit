@@ -77,7 +77,7 @@ def get_parser():
     parser.add_argument('-i', '--ide', type=str, nargs='*',
                         help='the supported IDE in : ' + '\t ,'.join(SUPPORT_IDE), default='')
     parser.add_argument('-o', '--os', type=str, nargs='*',
-                        help='the supported OS in : ' + '\t ,'.join(SUPPORT_IDE), default='')
+                        help='the supported OS in : ' + '\t ,'.join(SUPPORT_OS), default='')
 
     parser.add_argument('-v', '--version', help='display current version of addit', action='store_true')
     return parser
