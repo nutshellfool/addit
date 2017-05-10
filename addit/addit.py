@@ -27,14 +27,11 @@ SUPPORT_OS = ('macOS', 'Windows', 'Linux')
 def get_github_file_urls(params):
     if params is None: return None
     urls = []
-    for os_item in params['os']:
-        if os_item in SUPPORT_OS:
-            urls.append(IDE_OS_FILE_DOWNLOAD_URL.format(os_item))
     for query_item in params['query']:
         if query_item in SUPPORT_TYPE:
             urls.append(FILE_DOWNLOAD_URL.format(query_item))
-    for ide_item in params['ide']:
-        if ide_item in SUPPORT_IDE:
+    for ide_item in params['query']:
+        if ide_item in SUPPORT_IDE or ide_item in SUPPORT_OS:
             urls.append(IDE_OS_FILE_DOWNLOAD_URL.format(ide_item))
 
     return urls
@@ -71,13 +68,11 @@ def addit(args):
 
 
 def get_parser():
-    parser = argparse.ArgumentParser(description='instant .gitignore file add helper via the command line')
-    parser.add_argument('query', metavar='LANGUAGE', type=str, nargs='*',
-                        help='the language of supported in : '+'\t ,'.join(SUPPORT_TYPE))
-    parser.add_argument('-i', '--ide', type=str, nargs='*',
-                        help='the supported IDE in : ' + '\t ,'.join(SUPPORT_IDE), default='')
-    parser.add_argument('-o', '--os', type=str, nargs='*',
-                        help='the supported OS in : ' + '\t ,'.join(SUPPORT_OS), default='')
+    parser = argparse.ArgumentParser(description='Add .gitignore file via the command line')
+    parser.add_argument('query', metavar='PARAMETER', type=str, nargs='*',
+                        help='the supported language in : '+'\t ,'.join(SUPPORT_TYPE)+' || ' +
+                             'the supported IDE in : ' + '\t ,'.join(SUPPORT_IDE)+' || ' +
+                             'the supported OS in : ' + '\t ,'.join(SUPPORT_OS))
 
     parser.add_argument('-v', '--version', help='display current version of addit', action='store_true')
     return parser
