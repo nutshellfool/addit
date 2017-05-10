@@ -9,17 +9,23 @@ pip install addit
 
 ## Usage
 ```
-usage: addit [-h] [-v] [LANGUAGE [LANGUAGE ...]]
+usage: addit [-h] [-i [IDE [IDE ...]]] [-o [OS [OS ...]]] [-v]
+             [LANGUAGE [LANGUAGE ...]]
 
 instant .gitignore file add helper via the command line
 
 positional arguments:
-  LANGUAGE       the language of supported in : Java ,Python ,Objective-C
-                 ,Swift ,Go
+  LANGUAGE              the language of supported in : Java ,Python
+                        ,Objective-C ,Swift ,Go
 
 optional arguments:
-  -h, --help     show this help message and exit
-  -v, --version  display current version of addit
+  -h, --help            show this help message and exit
+  -i [IDE [IDE ...]], --ide [IDE [IDE ...]]
+                        the supported IDE in : JetBrains ,Xcode ,Vim ,Emacs
+                        ,Eclipse
+  -o [OS [OS ...]], --os [OS [OS ...]]
+                        the supported OS in : macOS ,Windows ,Linux
+  -v, --version         display current version of addit
 ```
 A common usage is:  
 ```Bash
