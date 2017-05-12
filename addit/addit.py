@@ -19,7 +19,7 @@ from . import __version__
 
 FILE_DOWNLOAD_URL = 'https://raw.githubusercontent.com/github/gitignore/master/{0}.gitignore'
 IDE_OS_FILE_DOWNLOAD_URL = 'https://raw.githubusercontent.com/github/gitignore/master/Global/{0}.gitignore'
-SUPPORT_TYPE = ('Java','Python','Objective-C', 'Swift', 'Android', 'Go')
+SUPPORT_TYPE = ('Java','Python','Objective-C', 'Swift', 'Android', 'Go', 'Maven', 'Gradle')
 SUPPORT_IDE = ('JetBrains', 'Xcode', 'Vim', 'Emacs', 'Eclipse')
 SUPPORT_OS = ('macOS', 'Windows', 'Linux')
 
