@@ -6,6 +6,10 @@
 ```Bash
 pip install addit
 ```
+For upgrade:  
+```Bash
+pip install addit -U
+```
 
 ## Usage
 ```
@@ -14,20 +18,26 @@ usage: addit.py [-h] [-v] [PARAMETER [PARAMETER ...]]
 Add .gitignore file via the command line
 
 positional arguments:
-  PARAMETER      the supported language in : Java ,Python ,Objective-C ,Swift
-                 ,Go || the supported IDE in : JetBrains ,Xcode ,Vim ,Emacs
-                 ,Eclipse || the supported OS in : macOS ,Windows ,Linux
+  PARAMETER      the supported language in : Java, Python, Objective-C, Swift
+                 Android, Go || the supported IDE in : JetBrains, Xcode, Vim, Emacs
+                 , Eclipse || the supported OS in : macOS, Windows, Linux
 
 optional arguments:
   -h, --help     show this help message and exit
   -v, --version  display current version of addit
 ```
 A common usage is:  
+for iOS (Objective-C) project (using Xcode as IDE) on macOS
 ```Bash
 cd your_project_path
 addit Objective-C Xcode macOS
 ```
 
+for Android project (using Android Studio as IDE) on macOS
+```
+cd your_project_path
+addit Android JetBrains macOS
+```
 currently only support  
 
 following language
@@ -35,6 +45,7 @@ following language
 * Python
 * Objective-C
 * Swift
+* Android
 * Go
 
 following IDE
