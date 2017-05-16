@@ -19,7 +19,7 @@ Add .gitignore file via the command line
 
 positional arguments:
   PARAMETER      the supported language in : Java, Python, Objective-C, Swift
-                 Android, Go, Maven, Gradle || the supported IDE in : JetBrains, Xcode, Vim, Emacs
+                 Android, Go, Maven, Gradle, Node || the supported IDE in : JetBrains, Xcode, Vim, Emacs
                  , Eclipse || the supported OS in : macOS, Windows, Linux
 
 optional arguments:
@@ -49,6 +49,7 @@ following language
 * Go
 * Maven
 * Gradle
+* Node
 
 following IDE
 * JetBrains
