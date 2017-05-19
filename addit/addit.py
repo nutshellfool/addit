@@ -136,13 +136,9 @@ def command_performer():
 
     if check_gitignore_file_exist():
         print('.gitignore file already exists, would you  override it')
-        if sys.version < '3':
-            confirm = raw_input('yes(Y) or no(n)?')
-        else:
-            confirm = input("yes(Y) or no(n)?")
-        if confirm.lower() == 'y' or confirm.lower() == 'yes':
-            pass
-        else: return
+        confirm = raw_input('yes(Y) or no(n)?') if sys.version < '3' else input("yes(Y) or no(n)?")
+        if confirm.lower() != 'y' and confirm.lower() != 'yes':
+            return
 
     if args['auto']:
         if args['query']:
@@ -151,14 +147,11 @@ def command_performer():
         if types is not None:
             print('auto detect current project type:')
             print(types)
+            confirm = raw_input("yes(Y) or no(n)?") if sys.version < '3' else input("yes(Y) or no(n)?")
+            if confirm.lower() != 'y' and confirm.lower() != 'yes':
+                return
+            args['query'] = types
 
-            if sys.version < '3':
-                confirm = raw_input("yes(Y) or no(n)?")
-            else:
-                confirm = input("yes(Y) or no(n)?")
-            if confirm.lower() == 'y' or confirm.lower() == 'yes':
-                args['query'] = types
-            else: return
     if not args['query']:
         parser.print_help()
         return
