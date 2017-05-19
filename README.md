@@ -25,6 +25,7 @@ positional arguments:
 optional arguments:
   -h, --help     show this help message and exit
   -v, --version  display current version of addit
+  -a, --auto     auto detect the project type
 ```
 A common usage is:  
 for iOS (Objective-C) project (using Xcode as IDE) on macOS
@@ -34,13 +35,20 @@ addit Objective-C Xcode macOS
 ```
 
 for Android project (using Android Studio as IDE) on macOS
-```
+```Bash
 cd your_project_path
 addit Android JetBrains macOS
 ```
+
+or you can try auto detect mode (beta)
+```Bash
+cd your_project_path
+addit -a
+```
+
 currently only support  
 
-following language
+following language (all support auto detect)
 * Java
 * Python
 * Objective-C
@@ -52,8 +60,8 @@ following language
 * Node
 
 following IDE
-* JetBrains
-* Xcode
+* JetBrains (support auto detect)
+* Xcode (support auto detect)
 * Vim
 * Emacs
 * Eclipse

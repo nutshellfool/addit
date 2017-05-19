@@ -11,6 +11,7 @@ import argparse
 import requests
 import sys
 import os
+import fnmatch
 
 from requests import ConnectionError
 from requests.exceptions import SSLError
@@ -46,7 +47,8 @@ def download_file(file_urls):
 
     if len(content_list) == 0: return False
 
-    content = '\n'.join(content_list)
+    content = b"\n".join(content_list)
+
     with open(os.path.join(os.getcwd(), '.gitignore'), 'wb') as f:
         f.write(content)
     return True
@@ -75,7 +77,54 @@ def get_parser():
                              'the supported OS in : ' + '\t ,'.join(SUPPORT_OS))
 
     parser.add_argument('-v', '--version', help='display current version of addit', action='store_true')
+    parser.add_argument('-a', '--auto', help='auto detect the project type', action='store_true')
     return parser
+
+
+def _detect_project_type():
+    type_parameter = []
+
+    current_path = os.getcwd()
+    if check_file_feature_exesits(current_path, '*.m'):
+        type_parameter.append('Objective-C')
+    if check_file_feature_exesits(current_path, '*.java'):
+        type_parameter.append('Java')
+    if check_file_feature_exesits(current_path, '*.swift'):
+        type_parameter.append('Swift')
+    if check_file_feature_exesits(current_path, '*.py'):
+        type_parameter.append('Python')
+    if check_file_feature_exesits(current_path, '*.go'):
+        type_parameter.append('Go')
+    if check_file_feature_exesits(current_path, '*.js'):
+        type_parameter.append('Node')
+
+    for file in os.listdir('.'):
+        if fnmatch.fnmatch(file, '*.iml'):
+            type_parameter.append('JetBrains')
+        if fnmatch.fnmatch(file, '*.xcodeproj'):
+            type_parameter.append('Xcode')
+        if fnmatch.fnmatch(file, 'gradlew'):
+            type_parameter.append('Gradle')
+        if fnmatch.fnmatch(file, 'pom.xml'):
+            type_parameter.append('Maven')
+        if fnmatch.fnmatch(file, 'local.properties'):
+            type_parameter.append('Android')
+    return type_parameter
+
+
+def check_file_feature_exesits(path, feature):
+    for path, subdirs, files in os.walk(path):
+        for file_name in files:
+            if fnmatch.fnmatch(file_name, feature):
+                return True
+    return False
+
+
+def check_gitignore_file_exist():
+    for file in os.listdir('.'):
+        if fnmatch.fnmatch(file, '.gitignore'):
+            return True
+    return False
 
 
 def command_performer():
@@ -85,9 +134,35 @@ def command_performer():
         print(__version__)
         return
 
+    if check_gitignore_file_exist():
+        print('.gitignore file already exists, would you  override it')
+        if sys.version < '3':
+            confirm = raw_input('yes(Y) or no(n)?')
+        else:
+            confirm = input("yes(Y) or no(n)?")
+        if confirm.lower() == 'y' or confirm.lower() == 'yes':
+            pass
+        else: return
+
+    if args['auto']:
+        if args['query']:
+            print('In auto detect mode, ingore the typed parameters')
+        types = _detect_project_type()
+        if types is not None:
+            print('auto detect current project type:')
+            print(types)
+
+            if sys.version < '3':
+                confirm = raw_input("yes(Y) or no(n)?")
+            else:
+                confirm = input("yes(Y) or no(n)?")
+            if confirm.lower() == 'y' or confirm.lower() == 'yes':
+                args['query'] = types
+            else: return
     if not args['query']:
         parser.print_help()
         return
+
     if sys.version < '3':
         print(addit(args).encode('utf-8', 'ignore'))
     else:
