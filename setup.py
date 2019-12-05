@@ -26,7 +26,9 @@ def read(*names):
         values[name] = value
     return values
 
+
 long_description = """
+
 %(README)s
 News
 ====
@@ -54,4 +56,5 @@ setup(
     install_requires=[
         'requests',
     ] + extra_dependencies(),
+    python_requires='>=3.5',
 )
